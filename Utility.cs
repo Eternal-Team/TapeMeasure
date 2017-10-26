@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BaseLib.Utility;
+using Microsoft.Xna.Framework;
 using System;
 using System.IO;
 using Terraria;
@@ -29,9 +30,5 @@ namespace TapeMeasure
 		}
 
 		public static Point16 ReadPoint16(this BinaryReader bb) => new Point16(bb.ReadInt16(), bb.ReadInt16());
-
-		public static Vector2 ToVector2(this Point16 point) => new Vector2(point.X, point.Y);
-
-		public static Point16 Min(this Point16 point, Point16 compareTo) => new Point16(point.X > compareTo.X ? compareTo.X : point.X, point.Y > compareTo.Y ? compareTo.Y : point.Y);
 	}
 }
