@@ -1,10 +1,11 @@
-using BaseLib.Utility;
 using System.Collections.Generic;
 using TapeMeasure.Items;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria.UI;
+using TheOneLibrary.Utility;
+using static TheOneLibrary.Utility.Utility;
 
 namespace TapeMeasure
 {
@@ -81,8 +82,8 @@ namespace TapeMeasure
 
 								if (data != null && data.start != Point16.Zero && data.end == Point16.Zero)
 								{
-									Main.spriteBatch.DrawOutline(data.start, BaseLib.Utility.Utility.MouseToWorldPoint(), data.color, 2);
-									Utility.DrawMeasureText(data.start, BaseLib.Utility.Utility.MouseToWorldPoint(), data.color, 0.7f);
+									Main.spriteBatch.DrawOutline(data.start, MouseToWorldPoint(), data.color, 2);
+									Utility.DrawMeasureText(data.start, MouseToWorldPoint(), data.color, 0.7f);
 								}
 
 								if (data != null && data.start != Point16.Zero && data.end != Point16.Zero)

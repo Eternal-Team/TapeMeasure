@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -38,8 +39,6 @@
     <Compile Include="TapeMeasure.cs" />
     <Compile Include="TapePlayer.cs" />
     <Compile Include="TapeUI.cs" />
-    <Compile Include="UIColor.cs" />
-    <Compile Include="UIColorBar.cs" />
     <Compile Include="Utility.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -76,9 +75,9 @@
     <Content Include="Items\TapeMeasureItem.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BaseLib\BaseLib.csproj">
-      <Project>{6812d262-8588-4999-a01d-a6ddc71ed4c0}</Project>
-      <Name>BaseLib</Name>
+    <ProjectReference Include="..\TheOneLibrary\TheOneLibrary.csproj">
+      <Project>{FE14625B-5827-4C2C-B11B-DE3F22AE17B2}</Project>
+      <Name>TheOneLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

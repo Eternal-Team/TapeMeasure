@@ -5,12 +5,15 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using static BaseLib.Utility.Utility;
+using TheOneLibrary.Base.Items;
+using static TheOneLibrary.Utility.Utility;
 
 namespace TapeMeasure.Items
 {
-	public class TapeMeasureItem : ModItem
+	public class TapeMeasureItem : BaseItem
 	{
+		public override string Texture => "TapeMeasure/Items/TapeMeasureItem";
+
 		public override bool CloneNewInstances => false;
 
 		public override ModItem Clone(Item item)
