@@ -1,24 +1,25 @@
+using System;
 using System.Collections.Generic;
 using TapeMeasure.Items;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria.UI;
-using TheOneLibrary.Utility;
-using static TheOneLibrary.Utility.Utility;
+using TheOneLibrary.Base;
+using static TheOneLibrary.Utils.Utility;
 
 namespace TapeMeasure
 {
 	public class TapeMeasure : Mod
 	{
-		public static TapeMeasure Instance;
+		[Null] public static TapeMeasure Instance;
 
 		public TapeUI TapeUI;
-		public UserInterface iTapeUI;
+		public UserInterface ITapeUI;
 
 		public TapeMeasure()
 		{
-			Properties = new ModProperties()
+			Properties = new ModProperties
 			{
 				Autoload = true,
 				AutoloadGores = true,
@@ -34,14 +35,16 @@ namespace TapeMeasure
 			{
 				TapeUI = new TapeUI();
 				TapeUI.Activate();
-				iTapeUI = new UserInterface();
-				iTapeUI.SetState(TapeUI);
+				ITapeUI = new UserInterface();
+				ITapeUI.SetState(TapeUI);
 			}
 		}
 
 		public override void Unload()
 		{
-			Instance = null;
+			this.UnloadNullableTypes();
+
+			GC.Collect();
 		}
 
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
@@ -57,7 +60,7 @@ namespace TapeMeasure
 						"TapeMeasure: Configure",
 						delegate
 						{
-							iTapeUI.Update(Main._drawInterfaceGameTime);
+							ITapeUI.Update(Main._drawInterfaceGameTime);
 							TapeUI.Draw(Main.spriteBatch);
 
 							return true;

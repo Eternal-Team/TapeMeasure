@@ -1,12 +1,12 @@
-using Microsoft.Xna.Framework;
 using System.IO;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using TheOneLibrary.Base.Items;
-using static TheOneLibrary.Utility.Utility;
+using static TheOneLibrary.Utils.Utility;
 
 namespace TapeMeasure.Items
 {
@@ -34,7 +34,6 @@ namespace TapeMeasure.Items
 		{
 			DisplayName.SetDefault("Tape Measure");
 			Tooltip.SetDefault("Left-click on opposing corners to take measurements\nRight-click in invetory to configure");
-			base.SetStaticDefaults();
 		}
 
 		public override void SetDefaults()

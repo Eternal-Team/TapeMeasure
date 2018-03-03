@@ -1,9 +1,9 @@
-﻿using Microsoft.Xna.Framework;
-using System;
+﻿using System;
 using System.IO;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
-using TheOneLibrary.Utility;
+using TheOneLibrary.Utils;
 
 namespace TapeMeasure
 {

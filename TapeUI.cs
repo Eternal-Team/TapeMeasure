@@ -6,6 +6,7 @@ using Terraria.ID;
 using Terraria.UI;
 using TheOneLibrary.Base.UI;
 using TheOneLibrary.UI.Elements;
+using TheOneLibrary.Utils;
 
 namespace TapeMeasure
 {
@@ -22,10 +23,9 @@ namespace TapeMeasure
 		{
 			panelMain.Width.Precent = 0.2f;
 			panelMain.Height.Precent = 0.05f;
-			panelMain.HAlign = 0.5f;
-			panelMain.VAlign = 0.5f;
+			panelMain.Center();
 			panelMain.SetPadding(0);
-			panelMain.BackgroundColor = panelColor;
+			panelMain.BackgroundColor = PanelColor;
 			Append(panelMain);
 
 			textColor.Left.Pixels = 8;
@@ -64,7 +64,7 @@ namespace TapeMeasure
 		public void Load(TapeMeasureItem item)
 		{
 			measure = item;
-			colorCurrent.color = item.color;
+			colorCurrent.color = measure.color;
 		}
 	}
 }

@@ -1,5 +1,5 @@
-﻿using Microsoft.Xna.Framework.Input;
-using System.Linq;
+﻿using System.Linq;
+using Microsoft.Xna.Framework.Input;
 using TapeMeasure.Items;
 using Terraria;
 using Terraria.DataStructures;
