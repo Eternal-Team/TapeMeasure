@@ -25,7 +25,7 @@ namespace TapeMeasure
 			panelMain.Height.Precent = 0.05f;
 			panelMain.Center();
 			panelMain.SetPadding(0);
-			panelMain.BackgroundColor = PanelColor;
+			panelMain.BackgroundColor = TheOneLibrary.Utils.Utility.PanelColor;
 			Append(panelMain);
 
 			textColor.Left.Pixels = 8;
