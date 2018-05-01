@@ -1,8 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using TapeMeasure.Items;
-using Terraria;
+﻿using TapeMeasure.Items;
 using Terraria.GameContent.UI.Elements;
-using Terraria.ID;
 using Terraria.UI;
 using TheOneLibrary.Base.UI;
 using TheOneLibrary.UI.Elements;
@@ -15,9 +12,9 @@ namespace TapeMeasure
 		public UIColorBar wheel = new UIColorBar();
 		public UIText textColor = new UIText("Select a color:");
 		public UIText textCurrentColor = new UIText("Current color:");
-		public UIColor colorCurrent = new UIColor(Color.White);
+		public UIColor colorCurrent;
 
-		private TapeMeasureItem measure;
+		public TapeMeasureItem measure;
 
 		public override void OnInitialize()
 		{
@@ -25,6 +22,8 @@ namespace TapeMeasure
 			panelMain.Height.Precent = 0.05f;
 			panelMain.Center();
 			panelMain.SetPadding(0);
+			panelMain.OnMouseDown += DragStart;
+			panelMain.OnMouseUp += DragEnd;
 			panelMain.BackgroundColor = TheOneLibrary.Utils.Utility.PanelColor;
 			Append(panelMain);
 
@@ -33,17 +32,12 @@ namespace TapeMeasure
 			panelMain.Append(textColor);
 
 			CalculatedStyle dimensions = textColor.GetDimensions();
-			wheel.Width.Set(-24 - dimensions.Width, 1);
+			wheel.Width.Set(-dimensions.Width - 24, 1);
 			wheel.Height.Pixels = dimensions.Height;
 			wheel.HAlign = 1;
 			wheel.Left.Pixels -= 8;
 			wheel.Top.Pixels = 8;
-			wheel.OnClick += (evt, e) =>
-			{
-				Main.PlaySound(SoundID.MenuTick);
-				measure.color = wheel.GetColor();
-				colorCurrent.color = measure.color;
-			};
+			wheel.OnLeftClickContinuos += () => measure.color.Value = wheel.GetColor();
 			panelMain.Append(wheel);
 
 			textCurrentColor.Left.Pixels = 8;
@@ -52,19 +46,14 @@ namespace TapeMeasure
 			panelMain.Append(textCurrentColor);
 
 			dimensions = textCurrentColor.GetDimensions();
-			colorCurrent.Width.Set(-24 - dimensions.Width, 1);
+			colorCurrent = new UIColor(measure.color);
+			colorCurrent.Width.Set(-dimensions.Width - 24, 1);
 			colorCurrent.Height.Pixels = dimensions.Height;
 			colorCurrent.HAlign = 1;
 			colorCurrent.Left.Pixels -= 8;
 			colorCurrent.VAlign = 1;
 			colorCurrent.Top.Pixels -= 8;
 			panelMain.Append(colorCurrent);
-		}
-
-		public void Load(TapeMeasureItem item)
-		{
-			measure = item;
-			colorCurrent.color = measure.color;
 		}
 	}
 }

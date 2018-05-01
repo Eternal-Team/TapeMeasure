@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -22,13 +21,5 @@ namespace TapeMeasure
 			string heightText = $"{height / 16} tile{(height / 16 > 1 ? "s" : "")}";
 			Utils.DrawBorderStringFourWay(Main.spriteBatch, Main.fontMouseText, heightText, position.X - 4, position.Y + height / 2f, color, Color.Black, new Vector2(Main.fontMouseText.MeasureString(heightText).X, Main.fontMouseText.MeasureString(heightText).Y / 2f), scale);
 		}
-
-		public static void WritePoint16(this BinaryWriter bb, Point16 p)
-		{
-			bb.Write(p.X);
-			bb.Write(p.Y);
-		}
-
-		public static Point16 ReadPoint16(this BinaryReader bb) => new Point16(bb.ReadInt16(), bb.ReadInt16());
 	}
 }
