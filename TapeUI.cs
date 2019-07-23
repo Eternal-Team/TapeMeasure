@@ -9,7 +9,7 @@ namespace TapeMeasure
 		public override void OnInitialize()
 		{
 			Width = (0, 0.2f);
-			Height = (64, 0);
+			Height = (0, 0.2f);
 			this.Center();
 
 			UIText textLabel = new UIText(Container.DisplayName.GetTranslation())
@@ -28,7 +28,7 @@ namespace TapeMeasure
 			{
 				Top = (28, 0),
 				Width = (-"Select a color:".Measure().X, 1),
-				Height = (20, 0),
+				Height = (-28, 1),
 				HAlign = 1
 			};
 			Append(wheel);

@@ -13,14 +13,15 @@ namespace TapeMeasure
 		{
 			int width = Math.Abs(start.X - end.X) * 16 + 16;
 			int height = Math.Abs(start.Y - end.Y) * 16 + 16;
+			Color inverted = color.Invert();
 
 			Vector2 position = start.Min(end).ToScreenCoordinates();
 
 			string widthText = $"{width / 16} tile{(width / 16 > 1 ? "s" : "")}";
-			Utils.DrawBorderStringFourWay(spriteBatch, Main.fontMouseText, widthText, position.X + width / 2f, position.Y - 4, Color.White, color, new Vector2(Main.fontMouseText.MeasureString(widthText).X / 2f, Main.fontMouseText.MeasureString(widthText).Y * scale), scale);
+			Utils.DrawBorderStringFourWay(spriteBatch, Main.fontMouseText, widthText, position.X + width / 2f, position.Y - 4, color, inverted, new Vector2(Main.fontMouseText.MeasureString(widthText).X / 2f, Main.fontMouseText.MeasureString(widthText).Y * scale), scale);
 
 			string heightText = $"{height / 16} tile{(height / 16 > 1 ? "s" : "")}";
-			Utils.DrawBorderStringFourWay(spriteBatch, Main.fontMouseText, heightText, position.X - 4, position.Y + height / 2f, Color.White, color, new Vector2(Main.fontMouseText.MeasureString(heightText).X, Main.fontMouseText.MeasureString(heightText).Y / 2f), scale);
+			Utils.DrawBorderStringFourWay(spriteBatch, Main.fontMouseText, heightText, position.X - 4, position.Y + height / 2f, color, inverted, new Vector2(Main.fontMouseText.MeasureString(heightText).X, Main.fontMouseText.MeasureString(heightText).Y / 2f), scale);
 		}
 
 		public static void DrawOutline(this SpriteBatch spriteBatch, Point16 start, Point16 end, Color color, float lineSize = 2)
