@@ -71,13 +71,13 @@ namespace TapeMeasure.Items
 			return true;
 		}
 
+		public override bool ConsumeItem(Player player) => false;
+		
 		public override bool CanRightClick() => true;
 
 		public override void RightClick(Player player)
 		{
 			if (player.whoAmI == Main.LocalPlayer.whoAmI) BaseLibrary.BaseLibrary.PanelGUI.UI.HandleUI(this);
-
-			item.stack++;
 		}
 
 		public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
