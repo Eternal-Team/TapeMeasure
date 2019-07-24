@@ -9,6 +9,8 @@ namespace TapeMeasure
 {
 	public static class Utility
 	{
+		// todo: perhaps figure out better color contrast
+		// todo: apperently there's an offset
 		public static void DrawMeasureText(this SpriteBatch spriteBatch, Point16 start, Point16 end, Color color, float scale = 1f)
 		{
 			int width = Math.Abs(start.X - end.X) * 16 + 16;

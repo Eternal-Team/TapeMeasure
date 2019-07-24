@@ -1,10 +1,11 @@
 ﻿using BaseLibrary;
 using BaseLibrary.UI;
 using BaseLibrary.UI.Elements;
+using Microsoft.Xna.Framework;
 
 namespace TapeMeasure
 {
-	public class TapeUI : BaseUIPanel<Items.TapeMeasure>
+	public class TapeMeasurePanel : BaseUIPanel<Items.TapeMeasure>
 	{
 		public override void OnInitialize()
 		{
@@ -17,6 +18,16 @@ namespace TapeMeasure
 				HAlign = 0.5f
 			};
 			Append(textLabel);
+
+			UITextButton buttonClose = new UITextButton("X")
+			{
+				Size = new Vector2(20),
+				Left = (-20, 1),
+				RenderPanel = false
+			};
+			buttonClose.GetHoverText += () => "Close";
+			buttonClose.OnClick += (evt, element) => BaseLibrary.BaseLibrary.PanelGUI.UI.CloseUI(Container);
+			Append(buttonClose);
 
 			UIText textColor = new UIText("Select a color:")
 			{

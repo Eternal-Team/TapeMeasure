@@ -42,7 +42,7 @@ namespace TapeMeasure.Items
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Tape Measure");
-			Tooltip.SetDefault("Left-click on opposing corners to take measurements\nRight-click in invetory to configure");
+			Tooltip.SetDefault("Left-click on opposing corners to take measurements\nRight-click in inventory to configure");
 		}
 
 		public override void SetDefaults()
