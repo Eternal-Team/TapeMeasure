@@ -39,12 +39,6 @@ namespace TapeMeasure.Items
 			return clone;
 		}
 
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Tape Measure");
-			Tooltip.SetDefault("Left-click on opposing corners to take measurements\nRight-click in inventory to configure");
-		}
-
 		public override void SetDefaults()
 		{
 			UUID = Guid.NewGuid();

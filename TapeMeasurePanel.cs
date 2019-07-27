@@ -38,7 +38,7 @@ namespace TapeMeasure
 			UIColorSelection wheel = new UIColorSelection(Container.Color)
 			{
 				Top = (28, 0),
-				Width = (-"Select a color:".Measure().X, 1),
+				Width = (-"Select a color:".Measure().X - 8f, 1),
 				Height = (-28, 1),
 				HAlign = 1
 			};
