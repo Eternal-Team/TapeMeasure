@@ -35,7 +35,7 @@ namespace TapeMeasure
 			};
 			Append(textColor);
 
-			UIColorSelection wheel = new UIColorSelection(Container.Color, 24)
+			UIColorSelection wheel = new UIColorSelection(Container.Color)
 			{
 				Top = (28, 0),
 				Width = (-"Select a color:".Measure().X, 1),
