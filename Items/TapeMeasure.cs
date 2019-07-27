@@ -21,11 +21,11 @@ namespace TapeMeasure.Items
 		public override bool CloneNewInstances => true;
 
 		public virtual LegacySoundStyle OpenSound => SoundID.Item1;
-		public Guid ID { get; set; }
+		public Guid UUID { get; set; }
 		public BaseUIPanel UI { get; set; }
 		public virtual LegacySoundStyle CloseSound => SoundID.Item1;
 
-		public Ref<Color> Color = new Ref<Color>(Microsoft.Xna.Framework.Color.White);
+		public BaseLibrary.Ref<Color> Color = new BaseLibrary.Ref<Color>(Microsoft.Xna.Framework.Color.White);
 
 		public Point16 start = Point16.Zero;
 		public Point16 end = Point16.Zero;
@@ -33,7 +33,7 @@ namespace TapeMeasure.Items
 		public override ModItem Clone()
 		{
 			TapeMeasure clone = (TapeMeasure)base.Clone();
-			clone.Color = new Ref<Color>(Color.Value);
+			clone.Color = new BaseLibrary.Ref<Color>(Color.Value);
 			clone.start = start;
 			clone.end = end;
 			return clone;
@@ -47,7 +47,7 @@ namespace TapeMeasure.Items
 
 		public override void SetDefaults()
 		{
-			ID = Guid.NewGuid();
+			UUID = Guid.NewGuid();
 
 			item.width = 38;
 			item.height = 26;
@@ -82,28 +82,29 @@ namespace TapeMeasure.Items
 
 		public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{
-			Texture2D texture = ModContent.GetTexture("TapeMeasure/Textures/TapeMeasure_Glow");
-			spriteBatch.Draw(texture, position, null, Color.Value, 0f, origin, scale, SpriteEffects.None, 0f);
+			spriteBatch.Draw(global::TapeMeasure.TapeMeasure.textureGlow, position, null, Color.Value, 0f, origin, scale, SpriteEffects.None, 0f);
 		}
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{
-			Texture2D texture = ModContent.GetTexture("TapeMeasure/Textures/TapeMeasure_Glow");
-			spriteBatch.Draw(texture, item.position - Main.screenPosition + new Vector2(item.width * 0.5f, item.height * 0.5f + 2), null, Color.Value, rotation, new Vector2(item.width, item.height) * 0.5f, scale, SpriteEffects.None, 0f);
+			spriteBatch.Draw(global::TapeMeasure.TapeMeasure.textureGlow, item.position - Main.screenPosition + new Vector2(item.width * 0.5f, item.height * 0.5f + 2), null, Color.Value, rotation, new Vector2(item.width, item.height) * 0.5f, scale, SpriteEffects.None, 0f);
 		}
 
 		public override TagCompound Save() => new TagCompound
 		{
+			["UUID"] = UUID,
 			["Color"] = Color.Value
 		};
 
 		public override void Load(TagCompound tag)
 		{
+			UUID = tag.Get<Guid>("UUID");
 			Color.Value = tag.Get<Color>("Color");
 		}
 
 		public override void NetSend(BinaryWriter writer)
 		{
+			writer.Write(UUID);
 			writer.Write(start);
 			writer.Write(end);
 			writer.WriteRGB(Color.Value);
@@ -111,6 +112,7 @@ namespace TapeMeasure.Items
 
 		public override void NetRecieve(BinaryReader reader)
 		{
+			UUID = reader.ReadGUID();
 			start = reader.ReadPoint16();
 			end = reader.ReadPoint16();
 			Color.Value = reader.ReadRGB();
