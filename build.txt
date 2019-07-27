@@ -1,4 +1,4 @@
-﻿author = Itorius & team
+﻿author = Itorius, orian34 & team
 version = 1.1
 displayName = Tape Measure
 homepage = http://forums.terraria.org/index.php?threads/itorius-mods.42289/

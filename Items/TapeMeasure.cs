@@ -54,9 +54,10 @@ namespace TapeMeasure.Items
 			item.useTime = 20;
 			item.useAnimation = 20;
 			item.maxStack = 1;
+			item.value = Item.sellPrice(gold: 5);
 			item.useStyle = ItemUseStyleID.SwingThrow;
 			item.UseSound = SoundID.Item1;
-			item.rare = ItemRarityID.Cyan;
+			item.rare = ItemRarityID.LightRed;
 		}
 
 		public override bool UseItem(Player player)
@@ -116,17 +117,6 @@ namespace TapeMeasure.Items
 			start = reader.ReadPoint16();
 			end = reader.ReadPoint16();
 			Color.Value = reader.ReadRGB();
-		}
-
-		public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.IronBar, 2);
-			recipe.AddIngredient(ItemID.Daybloom);
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.anyIronBar = true;
-			recipe.SetResult(this);
-			recipe.AddRecipe();
 		}
 	}
 }
