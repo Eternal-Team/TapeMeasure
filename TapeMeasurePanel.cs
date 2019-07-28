@@ -2,6 +2,7 @@
 using BaseLibrary.UI;
 using BaseLibrary.UI.Elements;
 using Microsoft.Xna.Framework;
+using Terraria.Localization;
 
 namespace TapeMeasure
 {
@@ -25,22 +26,15 @@ namespace TapeMeasure
 				Left = (-20, 1),
 				RenderPanel = false
 			};
-			buttonClose.GetHoverText += () => "Close";
+			buttonClose.GetHoverText += () => Language.GetTextValue("Mods.BaseLibrary.UI.Close");
 			buttonClose.OnClick += (evt, element) => BaseLibrary.BaseLibrary.PanelGUI.UI.CloseUI(Container);
 			Append(buttonClose);
-
-			UIText textColor = new UIText("Select a color:")
-			{
-				Top = (28, 0)
-			};
-			Append(textColor);
 
 			UIColorSelection wheel = new UIColorSelection(Container.Color)
 			{
 				Top = (28, 0),
-				Width = (-"Select a color:".Measure().X - 8f, 1),
-				Height = (-28, 1),
-				HAlign = 1
+				Width = (0, 1),
+				Height = (-28, 1)
 			};
 			Append(wheel);
 		}
