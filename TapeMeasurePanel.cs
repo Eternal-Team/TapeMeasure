@@ -24,9 +24,9 @@ namespace TapeMeasure
 			{
 				Size = new Vector2(20),
 				Left = (-20, 1),
-				RenderPanel = false
+				RenderPanel = false,
+				HoverText = Language.GetText("Mods.BaseLibrary.UI.Close")
 			};
-			buttonClose.GetHoverText += () => Language.GetTextValue("Mods.BaseLibrary.UI.Close");
 			buttonClose.OnClick += (evt, element) => BaseLibrary.BaseLibrary.PanelGUI.UI.CloseUI(Container);
 			Append(buttonClose);
 

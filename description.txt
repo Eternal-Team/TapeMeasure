@@ -1,1 +1,3 @@
-﻿Precise measurements of your Terraria world
+﻿Tape Measure is a neat tool the lets you measure distances between tiles.
+Just left-click on two opposing corners and it will measure both the width and the height of the selected area.
+Right-click on the Tape Measure in inventory to bring up a color selection UI.
