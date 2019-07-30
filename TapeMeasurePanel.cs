@@ -25,6 +25,7 @@ namespace TapeMeasure
 			{
 				Size = new Vector2(20),
 				Left = (-20, 1),
+				Padding = (0, 0, 0, 0),
 				RenderPanel = false,
 				HoverText = Language.GetText("Mods.BaseLibrary.UI.Close")
 			};
