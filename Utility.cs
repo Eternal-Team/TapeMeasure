@@ -15,7 +15,7 @@ namespace TapeMeasure
 			int height = Math.Abs(start.Y - end.Y) * 16 + 16;
 			Color inverted = color.Invert();
 
-			Vector2 position = start.Min(end).ToScreenCoordinates();
+			Vector2 position = start.Min(end).ToScreenCoordinates(false);
 
 			string widthText = $"{width / 16} tile{(width / 16 > 1 ? "s" : "")}";
 			Utils.DrawBorderStringFourWay(spriteBatch, Main.fontMouseText, widthText, position.X + width / 2f, position.Y - 4, color, inverted, new Vector2(Main.fontMouseText.MeasureString(widthText).X / 2f, Main.fontMouseText.MeasureString(widthText).Y * scale), scale);
@@ -29,7 +29,7 @@ namespace TapeMeasure
 			float width = Math.Abs(start.X - end.X) * 16 + 16;
 			float height = Math.Abs(start.Y - end.Y) * 16 + 16;
 
-			Vector2 position = start.Min(end).ToScreenCoordinates();
+			Vector2 position = start.Min(end).ToScreenCoordinates(false);
 
 			spriteBatch.Draw(Main.magicPixel, position, null, color, 0f, Vector2.Zero, new Vector2(width, lineSize / 1000f), SpriteEffects.None, 0f);
 			spriteBatch.Draw(Main.magicPixel, position, null, color, 0f, Vector2.Zero, new Vector2(lineSize, height / 1000f), SpriteEffects.None, 0f);

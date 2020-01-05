@@ -1,6 +1,6 @@
 using BaseLibrary;
 using BaseLibrary.Items;
-using BaseLibrary.UI;
+using BaseLibrary.UI.New;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -72,7 +72,7 @@ namespace TapeMeasure.Items
 
 		public override void RightClick(Player player)
 		{
-			if (player.whoAmI == Main.LocalPlayer.whoAmI) BaseLibrary.BaseLibrary.PanelGUI.UI.HandleUI(this);
+			if (player.whoAmI == Main.LocalPlayer.whoAmI) PanelUI.Instance.HandleUI(this);
 		}
 
 		public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)

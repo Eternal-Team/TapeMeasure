@@ -17,7 +17,7 @@ namespace TapeMeasure
 			if (!Main.dedServ) textureGlow = ModContent.GetTexture("TapeMeasure/Textures/TapeMeasure_Glow");
 		}
 
-		public override void Unload() => BaseLibrary.Utility.UnloadNullableTypes();
+		public override void Unload() => this.UnloadNullableTypes();
 
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
 		{

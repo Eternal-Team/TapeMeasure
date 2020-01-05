@@ -11,7 +11,7 @@ namespace TapeMeasure
 			if (type == NPCID.GoblinTinkerer && Main.hardMode)
 			{
 				shop.item[nextSlot] = new Item();
-				shop.item[nextSlot].SetDefaults(mod.ItemType<Items.TapeMeasure>());
+				shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.TapeMeasure>());
 				nextSlot++;
 			}
 		}
