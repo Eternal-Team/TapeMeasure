@@ -55,6 +55,8 @@ namespace TapeMeasure.Content
 			Item.shootSpeed = 10;
 		}
 
+		public override bool ConsumeItem(Player player) => false;
+
 		public override bool CanRightClick() => true;
 
 		public override void RightClick(Player player)
