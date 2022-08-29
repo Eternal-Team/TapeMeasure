@@ -83,7 +83,7 @@ namespace TapeMeasure.Content
 
 		public override void LoadData(TagCompound tag)
 		{
-			ID = tag.Get<Guid>("UUID");
+			ID = tag.Get<Guid>("ID");
 			Color = tag.Get<Color>("Color");
 		}
 
