@@ -21,7 +21,7 @@ public class TapeMeasureSystem : ModSystem
 
 	private static bool DrawMeasures()
 	{
-		foreach (Items.TapeMeasure tapeMeasure in Main.LocalPlayer.inventory.OfModItemType<Items.TapeMeasure>())
+		foreach (Content.TapeMeasure tapeMeasure in Main.LocalPlayer.inventory.OfModItemType<Content.TapeMeasure>())
 		{
 			if (tapeMeasure.start != Point16.NegativeOne && tapeMeasure.end == Point16.NegativeOne && Main.LocalPlayer.HeldItem == tapeMeasure.Item)
 			{

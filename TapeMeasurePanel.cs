@@ -5,9 +5,9 @@ using Terraria.Localization;
 
 namespace TapeMeasure;
 
-public class TapeMeasurePanel : BaseUIPanel<Items.TapeMeasure>
+public class TapeMeasurePanel : BaseUIPanel<Content.TapeMeasure>
 {
-	public TapeMeasurePanel(Items.TapeMeasure measure) : base(measure)
+	public TapeMeasurePanel(Content.TapeMeasure measure) : base(measure)
 	{
 		Width.Percent = 20;
 		Height.Percent = 20;
@@ -37,6 +37,7 @@ public class TapeMeasurePanel : BaseUIPanel<Items.TapeMeasure>
 		buttonClose.OnMouseLeave += _ => buttonClose.Settings.TextColor = Color.White;
 		Add(buttonClose);
 
+		// todo: add
 		// UIColorSelection wheel = new UIColorSelection(Container.Color)
 		// {
 		// 	Y = { Pixels = 28 },
