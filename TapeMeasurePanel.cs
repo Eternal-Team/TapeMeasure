@@ -7,15 +7,17 @@ namespace TapeMeasure;
 
 public class TapeMeasurePanel : BaseUIPanel<Content.TapeMeasure>
 {
+	private UIColorSelection colorSelection;
+
 	public TapeMeasurePanel(Content.TapeMeasure measure) : base(measure)
 	{
 		Width.Percent = 20;
-		Height.Percent = 20;
+		Height.Pixels = 84;
 
-		UIText textLabel = new UIText(Container.Item.Name)
+		UIText textLabel = new UIText(measure.Item.Name)
 		{
 			X = { Percent = 50 },
-			Y = { Percent = 50 }
+			Settings = { HorizontalAlignment = HorizontalAlignment.Center }
 		};
 		Add(textLabel);
 
@@ -30,20 +32,25 @@ public class TapeMeasurePanel : BaseUIPanel<Content.TapeMeasure>
 		{
 			if (args.Button != MouseButton.Left) return;
 
-			PanelUI.Instance.CloseUI(Container);
+			PanelUI.Instance.CloseUI(measure);
 			args.Handled = true;
 		};
 		buttonClose.OnMouseEnter += _ => buttonClose.Settings.TextColor = Color.Red;
 		buttonClose.OnMouseLeave += _ => buttonClose.Settings.TextColor = Color.White;
 		Add(buttonClose);
 
-		// todo: add
-		// UIColorSelection wheel = new UIColorSelection(Container.Color)
-		// {
-		// 	Y = { Pixels = 28 },
-		// 	Width = { Percent = 100 },
-		// 	Height = { Pixels = -28, Percent = 100 }
-		// };
-		// Add(wheel);
+		colorSelection = new UIColorSelection
+		{
+			Y = { Pixels = 28 },
+			Width = { Percent = 100 },
+			Height = { Pixels = -28, Percent = 100 }
+		};
+		colorSelection.OnColorChange += color => Container.Color = color;
+		Add(colorSelection);
+	}
+
+	protected override void Activate()
+	{
+		colorSelection.SetColor(Container.Color);
 	}
 }
