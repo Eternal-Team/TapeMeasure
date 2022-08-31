@@ -5,6 +5,7 @@ using BaseLibrary.UI;
 using BaseLibrary.Utility;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -13,30 +14,51 @@ using Terraria.ModLoader.IO;
 
 namespace TapeMeasure.Content
 {
-	// todo: line measurement
 	public class TapeMeasure : BaseItem, IHasUI
 	{
+		public enum MeasurementMode : byte
+		{
+			Line,
+			Area
+		}
+
 		public override string Texture => "TapeMeasure/Textures/TapeMeasure";
 
+		private static Asset<Texture2D> GlowTexture;
+		private MeasurementMode mode;
+
 		public Guid ID;
-
 		public Color Color;
-
 		public Point16 start;
 		public Point16 end;
 
+		public MeasurementMode Mode
+		{
+			get => mode;
+			set
+			{
+				mode = value;
+
+				Item.SetNameOverride(Lang.GetItemNameValue(Item.type) + $" ({(mode == MeasurementMode.Area ? "Area" : "Line")})");
+			}
+		}
+
 		public TapeMeasure()
 		{
+			GlowTexture ??= ModContent.Request<Texture2D>("TapeMeasure/Textures/TapeMeasure_Glow");
+
 			ID = Guid.NewGuid();
 			Color = ColorUtility.FromHSV(Main.rand.NextFloat(), 1f, 1f);
 			start = Point16.NegativeOne;
 			end = Point16.NegativeOne;
+			mode = MeasurementMode.Area;
 		}
 
 		public override ModItem Clone(Item Item)
 		{
 			TapeMeasure clone = (TapeMeasure)base.Clone(Item);
 			clone.Color = Color;
+			clone.Mode = Mode;
 			clone.start = start;
 			clone.end = end;
 			return clone;
@@ -79,32 +101,33 @@ namespace TapeMeasure.Content
 
 		public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{
-			Texture2D texture = ModContent.Request<Texture2D>("TapeMeasure/Textures/TapeMeasure_Glow").Value;
-			spriteBatch.Draw(texture, position, null, Color, 0f, origin, scale, SpriteEffects.None, 0f);
+			spriteBatch.Draw(GlowTexture.Value, position, null, Color, 0f, origin, scale, SpriteEffects.None, 0f);
 		}
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{
-			Texture2D texture = ModContent.Request<Texture2D>("TapeMeasure/Textures/TapeMeasure_Glow").Value;
-			spriteBatch.Draw(texture, Item.position - Main.screenPosition + new Vector2(Item.width * 0.5f, Item.height * 0.5f + 2), null, Color, rotation, new Vector2(Item.width, Item.height) * 0.5f, scale, SpriteEffects.None, 0f);
+			spriteBatch.Draw(GlowTexture.Value, Item.position - Main.screenPosition + new Vector2(Item.width * 0.5f, Item.height * 0.5f + 2), null, Color, rotation, new Vector2(Item.width, Item.height) * 0.5f, scale, SpriteEffects.None, 0f);
 		}
 
 		public override void SaveData(TagCompound tag)
 		{
 			tag["ID"] = ID;
 			tag["Color"] = Color;
+			tag["Mode"] = (byte)Mode;
 		}
 
 		public override void LoadData(TagCompound tag)
 		{
 			ID = tag.Get<Guid>("ID");
 			Color = tag.Get<Color>("Color");
+			Mode = (MeasurementMode)tag.GetByte("Mode");
 		}
 
 		public override void NetSend(BinaryWriter writer)
 		{
 			writer.Write(ID);
 			writer.WriteRGB(Color);
+			writer.Write((byte)Mode);
 			writer.Write(start);
 			writer.Write(end);
 		}
@@ -113,6 +136,7 @@ namespace TapeMeasure.Content
 		{
 			ID = reader.ReadGuid();
 			Color = reader.ReadRGB();
+			Mode = (MeasurementMode)reader.ReadByte();
 			start = reader.ReadPoint16();
 			end = reader.ReadPoint16();
 		}

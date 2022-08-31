@@ -1,6 +1,7 @@
 ﻿using BaseLibrary;
 using BaseLibrary.UI;
 using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.Localization;
 
 namespace TapeMeasure;
@@ -21,12 +22,28 @@ public class TapeMeasurePanel : BaseUIPanel<Content.TapeMeasure>
 		};
 		Add(textLabel);
 
+		UIText modeSwitch = new UIText("Mode")
+		{
+			Width = { Pixels = 40 },
+			Height = { Pixels = 20 },
+		};
+		modeSwitch.OnMouseDown += args =>
+		{
+			if (args.Button != MouseButton.Left) return;
+
+			args.Handled = true;
+
+			measure.Mode = measure.Mode.NextEnum();
+			textLabel.Text = measure.Item.Name;
+		};
+		Add(modeSwitch);
+		
 		UIText buttonClose = new UIText("X")
 		{
 			Height = { Pixels = 20 },
 			Width = { Pixels = 20 },
 			X = { Percent = 100 },
-			HoverText = Language.GetText("Mods.PortableStorage.UI.Close")
+			HoverText = Language.GetText("Mods.BaseLibrary.UI.Close")
 		};
 		buttonClose.OnMouseDown += args =>
 		{

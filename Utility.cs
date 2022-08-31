@@ -6,6 +6,7 @@ using ReLogic.Graphics;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent;
+using Terraria.ModLoader;
 
 namespace TapeMeasure;
 
@@ -36,10 +37,40 @@ public static class Utility
 
 		Vector2 position = MathUtility.Min(start, end).ToScreenCoordinates(false);
 
-		spriteBatch.Draw(TextureAssets.MagicPixel.Value, position, null, color, 0f, Vector2.Zero, new Vector2(width, lineSize * 0.001f), SpriteEffects.None, 0f);
-		spriteBatch.Draw(TextureAssets.MagicPixel.Value, position, null, color, 0f, Vector2.Zero, new Vector2(lineSize, height * 0.001f), SpriteEffects.None, 0f);
+		spriteBatch.Draw(DrawingUtility.Pixel.Value, position, null, color, 0f, Vector2.Zero, new Vector2(width, lineSize), SpriteEffects.None, 0f);
+		spriteBatch.Draw(DrawingUtility.Pixel.Value, position, null, color, 0f, Vector2.Zero, new Vector2(lineSize, height), SpriteEffects.None, 0f);
 
-		spriteBatch.Draw(TextureAssets.MagicPixel.Value, position + new Vector2(0, height - lineSize), null, color, 0f, Vector2.Zero, new Vector2(width, lineSize * 0.001f), SpriteEffects.None, 0f);
-		spriteBatch.Draw(TextureAssets.MagicPixel.Value, position + new Vector2(width - lineSize, 0), null, color, 0f, Vector2.Zero, new Vector2(lineSize, height * 0.001f), SpriteEffects.None, 0f);
+		spriteBatch.Draw(DrawingUtility.Pixel.Value, position + new Vector2(0, height - lineSize), null, color, 0f, Vector2.Zero, new Vector2(width, lineSize), SpriteEffects.None, 0f);
+		spriteBatch.Draw(DrawingUtility.Pixel.Value, position + new Vector2(width - lineSize, 0), null, color, 0f, Vector2.Zero, new Vector2(lineSize, height), SpriteEffects.None, 0f);
+	}
+
+	public static void DrawLine(SpriteBatch spriteBatch, Point16 start, Point16 end, Color color, float lineSize = 2)
+	{
+		Vector2 actualStart = start.ToScreenCoordinates(false) + new Vector2(8f);
+		Vector2 actualEnd = end.ToScreenCoordinates(false) + new Vector2(8f);
+
+		// little cheat to prevent rotation and direction being NaN
+		if (start == end) actualEnd.X += 0.001f;
+
+		Vector2 dir = Vector2.Normalize(actualEnd - actualStart);
+		float rotation = dir.ToRotation();
+		float length = Vector2.Distance(actualStart, actualEnd);
+		Vector2 center = actualStart + dir * length * 0.5f;
+
+		spriteBatch.Draw(DrawingUtility.Pixel.Value, center, null, color, rotation, new Vector2(0.5f), new Vector2(length, lineSize), SpriteEffects.None, 0f);
+
+		float tilesLength = length / 16f;
+		string text = $"{tilesLength:0.#} tile{(tilesLength is > 1f or < 0.001f ? "s" : "")}";
+		var font = FontAssets.MouseText.Value;
+
+		var texture = ModContent.Request<Texture2D>(BaseLibrary.BaseLibrary.TexturePath + "UI/Dot").Value;
+		spriteBatch.Draw(texture, actualStart, null, color, rotation, texture.Size() * 0.5f, 1f, SpriteEffects.None, 0f);
+		spriteBatch.Draw(texture, actualEnd, null, color, rotation, texture.Size() * 0.5f, 1f, SpriteEffects.None, 0f);
+
+		Vector2 normal = dir.X < 0f ? new Vector2(-dir.Y, dir.X) : new Vector2(dir.Y, -dir.X);
+
+		Vector2 textPos = center + normal * 10f;
+		if (Math.Abs(rotation) > MathHelper.PiOver2) rotation += MathHelper.Pi;
+		DrawingUtility.DrawTextWithBorder(Main.spriteBatch, font, text, textPos, color, Color.Black, font.MeasureString(text) * 0.5f, rotation, 0.8f);
 	}
 }
