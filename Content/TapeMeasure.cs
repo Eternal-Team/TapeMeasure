@@ -93,6 +93,15 @@ namespace TapeMeasure.Content
 
 		public override bool CanRightClick() => true;
 
+		public override bool AltFunctionUse(Player player)
+		{
+			start = end = Point16.NegativeOne;
+
+			return true;
+		}
+
+		public override bool CanUseItem(Player player) => player.altFunctionUse != 2;
+
 		public override void RightClick(Player player)
 		{
 			if (player.whoAmI == Main.LocalPlayer.whoAmI)
