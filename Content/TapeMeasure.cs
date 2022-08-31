@@ -13,6 +13,7 @@ using Terraria.ModLoader.IO;
 
 namespace TapeMeasure.Content
 {
+	// todo: line measurement
 	public class TapeMeasure : BaseItem, IHasUI
 	{
 		public override string Texture => "TapeMeasure/Textures/TapeMeasure";
@@ -21,13 +22,15 @@ namespace TapeMeasure.Content
 
 		public Color Color;
 
-		public Point16 start = Point16.NegativeOne;
-		public Point16 end = Point16.NegativeOne;
+		public Point16 start;
+		public Point16 end;
 
 		public TapeMeasure()
 		{
 			ID = Guid.NewGuid();
 			Color = ColorUtility.FromHSV(Main.rand.NextFloat(), 1f, 1f);
+			start = Point16.NegativeOne;
+			end = Point16.NegativeOne;
 		}
 
 		public override ModItem Clone(Item Item)
@@ -53,6 +56,15 @@ namespace TapeMeasure.Content
 			Item.rare = ItemRarityID.LightRed;
 			Item.shoot = ModContent.ProjectileType<TapeMeasureProjectile>();
 			Item.shootSpeed = 10;
+		}
+
+		public override void AddRecipes()
+		{
+			CreateRecipe()
+				.AddRecipeGroup(RecipeGroupID.IronBar, 3)
+				.AddIngredient(ItemID.Gel, 5)
+				.AddTile(TileID.WorkBenches)
+				.Register();
 		}
 
 		public override bool ConsumeItem(Player player) => false;
@@ -92,17 +104,17 @@ namespace TapeMeasure.Content
 		public override void NetSend(BinaryWriter writer)
 		{
 			writer.Write(ID);
-			// writer.Write(start);
-			// writer.Write(end);
 			writer.WriteRGB(Color);
+			writer.Write(start);
+			writer.Write(end);
 		}
 
 		public override void NetReceive(BinaryReader reader)
 		{
 			ID = reader.ReadGuid();
-			// start = reader.ReadPoint16();
-			// end = reader.ReadPoint16();
 			Color = reader.ReadRGB();
+			start = reader.ReadPoint16();
+			end = reader.ReadPoint16();
 		}
 
 		public Guid GetID() => ID;
