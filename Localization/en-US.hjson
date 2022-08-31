@@ -1,0 +1,11 @@
+Mods: {
+	PortableStorage: {
+		ItemName: {
+			TapeMeasure: Tape Measure
+		}
+		
+		ItemTooltip: {
+			TapeMeasure: Use to take measurements\nRight-click in inventory to configure\n"It cannot measure your building skills."
+		}
+	}
+}
